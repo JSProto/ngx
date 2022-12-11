@@ -1,0 +1,39 @@
+{
+  "name": "ngx-lodash",
+  "projectType": "library",
+  "sourceRoot": "libs/lodash/src",
+  "prefix": "ngx-lodash",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/ngx-lodash"],
+      "options": {
+        "project": "libs/ngx-lodash/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ngx-lodash/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ngx-lodash/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/ngx-lodash"],
+      "options": {
+        "jestConfig": "libs/ngx-lodash/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ngx-lodash/**/*.ts", "libs/ngx-lodash/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}
