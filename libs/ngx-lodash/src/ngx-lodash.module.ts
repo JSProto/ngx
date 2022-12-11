@@ -25,4 +25,4 @@ import { LodashObjectPipeModule } from './object/lodash-object.module'
     LodashNumberPipeModule,
   ],
 })
-export class LodashPipeModule {}
+export class NgxLodashModule {}
