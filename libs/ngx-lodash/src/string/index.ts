@@ -1,32 +1,34 @@
+export * from './camelCase.pipe'
+export * from './camelCase.pipe'
+export * from './capitalize.pipe'
+export * from './deburr.pipe'
+export * from './endsWith.pipe'
+export * from './escape.pipe'
+export * from './escapeRegExp.pipe'
+export * from './kebabCase.pipe'
+export * from './lowerCase.pipe'
+export * from './lowerFirst.pipe'
+export * from './pad.pipe'
+export * from './padEnd.pipe'
+export * from './padStart.pipe'
+export * from './replace.pipe'
+export * from './repeat.pipe'
+export * from './snakeCase.pipe'
+export * from './split.pipe'
+export * from './startCase.pipe'
+export * from './startsWith.pipe'
+export * from './toLower.pipe'
+export * from './toUpper.pipe'
+export * from './trim.pipe'
+export * from './trimEnd.pipe'
+export * from './trimStart.pipe'
+export * from './truncate.pipe'
+export * from './unescape.pipe'
+export * from './upperCase.pipe'
+export * from './upperFirst.pipe'
+export * from './words.pipe'
+
 /**
-_.camelCase,
-_.capitalize,
-_.deburr,
-_.endsWith,
-_.escape,
-_.escapeRegExp,
-_.kebabCase,
-_.lowerCase,
-_.lowerFirst,
-_.pad,
-_.padEnd,
-_.padStart,
 _.parseInt,
-_.repeat,
-_.replace,
-_.snakeCase,
-_.split,
-_.startCase,
-_.startsWith,
 _.template,
-_.toLower,
-_.toUpper,
-_.trim,
-_.trimEnd,
-_.trimStart,
-_.truncate,
-_.unescape,
-_.upperCase,
-_.upperFirst,
-_.words
  */
