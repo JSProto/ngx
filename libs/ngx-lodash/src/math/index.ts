@@ -1,3 +1,4 @@
+export * from './lodash-math.module'
 
 /**
 _.add,

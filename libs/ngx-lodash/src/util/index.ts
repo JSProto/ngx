@@ -1,3 +1,5 @@
+export * from './lodash-util.module'
+
 /**
 _.attempt,
 _.bindAll,

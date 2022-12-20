@@ -1,3 +1,5 @@
+export * from './lodash-object.module'
+
 export * from './assign.pipe'
 export * from './entries.pipe'
 export * from './get.pipe'

@@ -1,4 +1,7 @@
+export * from './lodash-function.module'
+
 export * from './negate.pipe'
+
 
 /**
 _.after,

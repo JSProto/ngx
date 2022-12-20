@@ -1,3 +1,5 @@
+export * from './lodash-array.module'
+
 export * from './concat.pipe'
 export * from './difference.pipe'
 export * from './first.pipe'

@@ -1,3 +1,5 @@
+export * from './lodash-string.module'
+
 export * from './camelCase.pipe'
 export * from './camelCase.pipe'
 export * from './capitalize.pipe'

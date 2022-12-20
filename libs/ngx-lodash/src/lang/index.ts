@@ -1,3 +1,5 @@
+export * from './lodash-lang.module'
+
 export * from './isEmpty.pipe'
 
 /**

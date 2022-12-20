@@ -1,3 +1,5 @@
+export * from './lodash-collection.module'
+
 export * from './filter.pipe'
 export * from './find.pipe'
 export * from './includes.pipe'

@@ -4,6 +4,6 @@
   "projects": {
     "demo": "apps/demo",
     "demo-e2e": "apps/demo-e2e",
-    "lodash": "libs/ngx-lodash"
+    "ngx-lodash": "libs/ngx-lodash"
   }
 }
