@@ -12,8 +12,10 @@ export * from './sortBy.pipe'
 
 /**
  _.countBy
+ 
  _.each -> forEach
  _.eachRight -> forEachRight
+ 
  _.every
  _.filter
  _.find
@@ -21,8 +23,10 @@ export * from './sortBy.pipe'
  _.flatMap
  _.flatMapDeep
  _.flatMapDepth
+
  _.forEach
  _.forEachRight
+ 
  _.groupBy
  _.includes
  _.invokeMap
