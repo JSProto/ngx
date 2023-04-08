@@ -1,0 +1,9 @@
+<div class="board">
+  <div
+    *ngFor="let cell of board$ | async"
+    class="cell"
+    (click)="!cell.checked ? cell.checked = true : false"
+  >
+    {{ cell.checked ? 'x' : 'o' }}
+  </div>
+</div>
