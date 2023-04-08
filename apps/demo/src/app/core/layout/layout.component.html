@@ -1,0 +1,22 @@
+<mat-sidenav-container autosize class="h-screen">
+  <mat-sidenav #sidenav mode="side" opened class="min-w-[150px]">
+    <navigation *ngIf="navigation$ | async as menu" [menu]="menu"></navigation>
+  </mat-sidenav>
+  <mat-sidenav-content class="relative md:ml-64 bg-blueGray-100">
+    <mat-toolbar>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="flex-auto"></span>
+    </mat-toolbar>
+
+    <div class="flex">
+
+      <article class="flex flex-col flex-auto px-4 md:px-10 mx-auto w-full -m-24">
+        <router-outlet *ngIf="true"></router-outlet>
+        <!-- <footer></footer> -->
+      </article>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

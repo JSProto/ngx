@@ -15,7 +15,10 @@
         "tsConfig": "apps/demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
-        "styles": ["apps/demo/src/styles.scss"],
+        "styles": [
+          "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+          "apps/demo/src/styles.scss"
+        ],
         "scripts": [],
         "allowedCommonJsDependencies": ["lodash"]
       },

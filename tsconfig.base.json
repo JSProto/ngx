@@ -18,7 +18,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {
-      "@this/ngx-lodash": ["libs/ngx-lodash/src/index.ts"]
+      "@this/ngx-lodash": ["libs/ngx-lodash/src/index.ts"],
+      "@this/ngx-table": ["libs/ngx-table/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", ".angular/", "dist/"]

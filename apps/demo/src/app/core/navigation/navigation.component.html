@@ -1,0 +1,44 @@
+<mat-nav-list class="side-navbar">
+  <a mat-list-item [routerLink]="['/']">
+    <mat-icon>home</mat-icon>
+  </a>
+
+  <ng-container *ngFor="let route of menu; index as i">
+    <ng-container
+      [ngTemplateOutlet]="route.children.length ? list : item"
+      [ngTemplateOutletContext]="{ route: route }"
+    >
+    </ng-container>
+  </ng-container>
+</mat-nav-list>
+
+<ng-template #item let-route="route">
+  <a [routerLink]="route.path" routerLinkActive="is-active">
+    <mat-list-item>
+      <mat-icon *ngIf="route.data?.['icon']">{{ route.data?.['icon'] }}</mat-icon>
+      <div class="headline-5">{{ route.title }}</div>
+    </mat-list-item>
+  </a>
+</ng-template>
+
+<ng-template #list let-route="route">
+  <mat-expansion-panel
+    [class.mat-elevation-z0]="true"
+    [expanded]="router.isActive(route.path!, false)"
+  >
+    <mat-expansion-panel-header>
+      <mat-icon *ngIf="route.data?.['icon']">{{ route.data?.['icon'] }}</mat-icon>
+      <div class="headline-5">{{ route.title }}</div>
+    </mat-expansion-panel-header>
+
+    <mat-nav-list>
+      <ng-container *ngFor="let subroute of route.children; index as i; trackByKey: 'id'">
+        <ng-container
+          [ngTemplateOutlet]="subroute.children.length ? list : item"
+          [ngTemplateOutletContext]="{ route: subroute }"
+        >
+        </ng-container>
+      </ng-container>
+    </mat-nav-list>
+  </mat-expansion-panel>
+</ng-template>
