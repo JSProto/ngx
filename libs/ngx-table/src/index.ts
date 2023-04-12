@@ -1,1 +1,1 @@
-export * from './lib/ngx-table.module'
+export * from './ngx-table.module'

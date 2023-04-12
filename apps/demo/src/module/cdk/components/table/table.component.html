@@ -1,15 +1,45 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <mat-text-column name="position" [headerText]="headerText"></mat-text-column>
+<section class="example-container mat-elevation-z8 h-screen" tabindex="0">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id" sticky>
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+    </ng-container>
+    
+    <ngx-text-column name="username" sticky></ngx-text-column>
+    
+    <ng-container matColumnDef="uid">
+      <th mat-header-cell *matHeaderCellDef>UID</th>
+      <td mat-cell *matCellDef="let user">
+        <div class="truncate bg-gradient-to-r from-indigo-500 w-40">
+          {{ user.uid }}
+        </div>
+      </td>
+    </ng-container>
+    <!-- <ngx-copy-column name="uid"></ngx-copy-column> -->
+    <!-- <ngx-text-column name="first_name"></ngx-text-column> -->
+    
+    <!-- <ng-container matColumnDef="first_name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let user; context: dataSource">
+        {{ user.first_name }} {{ user.last_name }}
+      </td>
+    </ng-container> -->
+    
+    <ngx-text-column name="email"></ngx-text-column>
 
-  <!-- Change the header text. -->
-  <mat-text-column name="name" headerText="Element"></mat-text-column>
+    <ngx-img-column name="avatar"></ngx-img-column>
+    <ngx-text-column name="gender"></ngx-text-column>
+    <ngx-text-column name="phone_number" headerText="Phone" justify="end"></ngx-text-column>
+    <ngx-text-column name="social_insurance_number" headerText="Social number"></ngx-text-column>
+    <ngx-date-time-column name="date_of_birth"></ngx-date-time-column>
 
-  <!-- Provide a data accessor for getting the cell text values. -->
-  <mat-text-column name="weight" [dataAccessor]="getWeight"></mat-text-column>
+    <!-- 
+    <ngx-text-column name="weight" [dataAccessor]="getWeight"></ngx-text-column>
+  
+    <ngx-text-column name="symbol" justify="end"></ngx-text-column> -->
 
-  <!-- Justify the content of the cells to the cell end. -->
-  <mat-text-column name="symbol" justify="end"></mat-text-column>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <!-- <tr mat-footer-row *matFooterRowDef="['position']"></tr> -->
+  </table>
+</section>
