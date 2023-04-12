@@ -4,6 +4,10 @@
   "affected": {
     "defaultBase": "main"
   },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "projects"
+  },
   "cli": {
     "packageManager": "npm"
   },
