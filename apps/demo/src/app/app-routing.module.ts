@@ -23,7 +23,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'cdk',
-        loadChildren: async () => (await import('../module/cdk/cdk.module')).CdkModule,
+        loadChildren: async () => (await import('@app/demo/cdk')).CdkModule,
       },
     ],
   },

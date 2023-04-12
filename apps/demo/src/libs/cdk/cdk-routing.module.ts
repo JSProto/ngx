@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router'
 import { OutletComponent } from '../../app/components/outlet/outlet.component'
 import { Route } from '../../app/core/route'
 
+import { FormComponent } from './components/form/form.component'
 import { TableComponent } from './components/table/table.component'
 
 const components: Route = {
@@ -17,6 +18,12 @@ const components: Route = {
       title: 'Table',
       data: { icon: 'text_fields' },
       component: TableComponent,
+    },
+    {
+      path: 'form',
+      title: 'Form',
+      data: { icon: 'form' },
+      component: FormComponent,
     },
   ],
 }
