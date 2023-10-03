@@ -1,4 +1,5 @@
 
+import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import * as _ from 'lodash'
 import { BehaviorSubject } from 'rxjs'
@@ -21,6 +22,8 @@ export class Cell {
 
 @Component({
   selector: 'tic-tac-toe',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: `./tic-tac-toe.component.html`,
   styleUrls: [`./tic-tac-toe.component.scss`],
 })
