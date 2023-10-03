@@ -10,7 +10,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2019", "dom"],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -19,9 +19,8 @@
     "esModuleInterop": true,
     "paths": {
       "@app/demo/*": ["apps/demo/src/libs/*"],
-      "@this/ngx-form": ["projects/ngx-form/src/index.ts"],
-      "@this/ngx-lodash": ["projects/ngx-lodash/src/index.ts"],
-      "@this/ngx-table": ["projects/ngx-table/src/index.ts"]
+      "@jsproto/ngx-dc": ["projects/dc/src/index.ts"],
+      "@jsproto/ngx-lodash": ["projects/lodash/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", ".angular/", "dist/"]

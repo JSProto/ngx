@@ -1,0 +1,51 @@
+{
+  "name": "ngx-dc",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/dc/src",
+  "prefix": "ngx",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "projects/dc/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/dc/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "projects/dc/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/dc/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "projects/dc/**/*.ts",
+          "projects/dc/**/*.html",
+          "projects/dc/package.json"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "ngx-lodash",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/lodash/src",
+  "prefix": "ngx",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "projects/lodash/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/lodash/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "projects/lodash/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/lodash/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "projects/lodash/**/*.ts",
+          "projects/lodash/**/*.html",
+          "projects/lodash/package.json"
+        ]
+      }
+    }
+  }
+}
