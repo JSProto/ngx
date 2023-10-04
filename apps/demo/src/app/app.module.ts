@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { DynamicDirective, provideDynamicComponent } from '@jsproto/ngx-dc'
 
 import { CommonModule } from '@angular/common'
 import {
@@ -23,7 +24,15 @@ import { PluginViewComponent } from './plugin-view/plugin-view.component'
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent, PluginViewComponent],
-  imports: [CommonModule, BrowserModule, RouterModule, BrowserAnimationsModule, HttpClientModule, LayoutModule],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    LayoutModule,
+    DynamicDirective,
+  ],
   providers: [
     provideRouter(
       routes,
@@ -35,6 +44,10 @@ import { PluginViewComponent } from './plugin-view/plugin-view.component'
         onSameUrlNavigation: 'reload',
       }),
     ),
+    provideDynamicComponent({
+      id: 'testid',
+      component: PluginViewComponent,
+    }),
   ],
   bootstrap: [AppComponent],
 })

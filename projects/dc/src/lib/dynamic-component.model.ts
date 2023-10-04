@@ -2,7 +2,6 @@ import { Type } from '@angular/core'
 
 export interface DynamicComponentManifest {
   id: string
-  label: string
   data?: Record<string, any>
   component: Type<unknown>
 }
