@@ -21,6 +21,7 @@ import { HomeComponent } from './components/home/home.component'
 import { OutletComponent } from './components/outlet/outlet.component'
 import { LayoutModule } from './core/layout/layout.module'
 import { PluginViewComponent } from './plugin-view/plugin-view.component'
+import { TestidAdapterDirective } from './plugin-view/testid.directive'
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent, PluginViewComponent],
@@ -32,6 +33,7 @@ import { PluginViewComponent } from './plugin-view/plugin-view.component'
     HttpClientModule,
     LayoutModule,
     DynamicDirective,
+    TestidAdapterDirective
   ],
   providers: [
     provideRouter(

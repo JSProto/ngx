@@ -43,6 +43,8 @@ export class DynamicComponentRegister implements OnDestroy {
       this.inputs.clear()
       this.outputs.clear()
 
+      console.log('registerComponentRef')
+
       mirror.inputs.forEach((input) => {
         this.inputs.add(input.propName)
 
@@ -57,6 +59,8 @@ export class DynamicComponentRegister implements OnDestroy {
         const emitter = (componentRef.instance as any)[output.templateName] as EventEmitter<
           DynamicOutputPayload<unknown, Type<unknown>>
         >
+
+        console.log(`output.propName(${output.propName}):`, this.inputValues.has(output.propName))
 
         subscriptions.push(
           emitter.pipe(takeUntil(this.destroy$)).subscribe((value) =>
@@ -81,17 +85,17 @@ export class DynamicComponentRegister implements OnDestroy {
     }
   }
 
-  setInput<T = unknown>(input: string, value: T): void {
-    this.inputValues.set(input, value)
+  setInput<T = unknown>(propName: string, value: T): void {
+    this.inputValues.set(propName, value)
 
     if (
-      this.inputs.has(input) &&
+      this.inputs.has(propName) &&
       this.componentRef &&
-      (this.componentRef.instance as Record<string, unknown>)[input] !== value
+      (this.componentRef.instance as Record<string, unknown>)[propName] !== value
     ) {
-      this.componentRef.setInput(input, value)
+      this.componentRef.setInput(propName, value)
     } else {
-      console.warn(`${this.component} does not have an input configured with @Input called ${input}.`)
+      console.warn(`${this.component} does not have an input configured with @Input called "${propName}".`)
     }
   }
 }

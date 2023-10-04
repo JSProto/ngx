@@ -7,9 +7,9 @@ import { DynamicComponentRegister } from './dynamic-component.register'
  * class MyDynamicComponent {
  *     @Input() loading = false;
  * }
- * 
+ *
  * @Directive({
- *     selector: "[myDynamicComponentWrapper]",
+ *     selector: "[myDynamicComponentAdapter]",
  * })
  * class MyDynamicDirective {
  *     @DynamicInput() @Input() loading = false;
@@ -17,17 +17,21 @@ import { DynamicComponentRegister } from './dynamic-component.register'
  * ```
  *
  * ```
- * <div dc myDynamicComponentWrapper [loading]="loading$ | async"></div>
+ * <div dc myDynamicComponentAdapter [loading]="loading$ | async"></div>
  * ```
  */
+
 export function DynamicInput() {
   return (target: unknown, propertyName: string) => {
     const registerMap = new WeakMap<any, DynamicComponentRegister>()
 
     Object.defineProperty(target, propertyName, {
       set(value: unknown) {
-        this[`_${propertyName}`] = value
+        this[`__${propertyName}`] = value
+
         let register = registerMap.get(this)
+
+        console.log(`@DynamicInput() setInput(${propertyName})`, value, new Error().stack)
 
         if (!register) {
           register = inject(DynamicComponentRegister)
@@ -38,7 +42,7 @@ export function DynamicInput() {
         register.setInput(propertyName, value)
       },
       get(): unknown {
-        return this[`_${propertyName}`]
+        return this[`__${propertyName}`]
       },
     })
   }

@@ -2,6 +2,20 @@
   <h1 class="text-9xl font-extrabold text-white tracking-widest">start</h1>
   <div class="bg-[#FF6A3D] px-2 text-5xl rounded rotate-12 absolute">home</div>
 </main>
-<div dc inject="testid">
-  test
+
+<!-- var1:
+<br />
+<div dc inject="testid2">
+  <span class="test1">test1</span>
+  <span class="test2">test2</span>
 </div>
+<hr /> -->
+
+var2:
+<br />
+<div dc inject="testid" testid [datas]="data" (send)="testSend($event)">
+  <span class="test1">span test1</span> -  <span class="test2">span test2</span>
+</div>
+
+<br>
+<button (click)="update()">update data</button>

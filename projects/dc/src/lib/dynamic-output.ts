@@ -1,6 +1,6 @@
 import { EventEmitter, inject } from '@angular/core'
 import { filter, takeUntil } from 'rxjs'
-import { DynamicComponentRegister, DynamicOutputEmission } from './dynamic-component.register'
+import { DynamicComponentRegister } from './dynamic-component.register'
 
 /**
  * ```
@@ -8,7 +8,7 @@ import { DynamicComponentRegister, DynamicOutputEmission } from './dynamic-compo
  * class MyDynamicComponent {
  *     @Output() send = new EventEmmitter;
  * }
- * 
+ *
  * @Directive({
  *     selector: "[myDynamicComponentWrapper]",
  * })
@@ -26,28 +26,30 @@ export function DynamicOutput() {
     const registerMap = new WeakMap<any, DynamicComponentRegister>()
 
     Object.defineProperty(target, propertyName, {
-      set(value: EventEmitter<DynamicOutputEmission<unknown, unknown>>) {
-        this[`_${propertyName}`] = value
+      set(value: EventEmitter<unknown>) {
+        this[`__${propertyName}`] = value
 
-        let registry = registerMap.get(this)
+        let register = registerMap.get(this)
 
-        if (!registry) {
-          registry = inject(DynamicComponentRegister)
+        console.log(`@DynamicOutput() setInput(${propertyName})`)
 
-          registerMap.set(this, registry)
+        if (!register) {
+          register = inject(DynamicComponentRegister)
 
-          registry.events$
+          registerMap.set(this, register)
+
+          register.events$
             .pipe(
-              filter((event) => event.output === propertyName),
-              takeUntil(registry.destroy$),
+              filter(({ output }) => output === propertyName),
+              takeUntil(register.destroy$),
             )
-            .subscribe((eventValue) => value.emit(eventValue))
+            .subscribe((event) => value.emit(event.value.data))
         }
 
-        registry.setInput(propertyName, value)
+        register.setInput(propertyName, value)
       },
       get(): EventEmitter<unknown> {
-        return this[`_${propertyName}`]
+        return this[`__${propertyName}`]
       },
     })
   }
