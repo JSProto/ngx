@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+import { CommonModule } from '@angular/common'
 import {
   PreloadAllModules,
   RouterModule,
@@ -18,10 +19,11 @@ import { ErrorComponent } from './components/error/error.component'
 import { HomeComponent } from './components/home/home.component'
 import { OutletComponent } from './components/outlet/outlet.component'
 import { LayoutModule } from './core/layout/layout.module'
+import { PluginViewComponent } from './plugin-view/plugin-view.component'
 
 @NgModule({
-  declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent],
-  imports: [BrowserModule, RouterModule, BrowserAnimationsModule, HttpClientModule, LayoutModule],
+  declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent, PluginViewComponent],
+  imports: [CommonModule, BrowserModule, RouterModule, BrowserAnimationsModule, HttpClientModule, LayoutModule],
   providers: [
     provideRouter(
       routes,

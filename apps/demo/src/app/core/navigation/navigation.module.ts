@@ -5,14 +5,14 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatListModule } from '@angular/material/list'
 import { RouterModule } from '@angular/router'
 
-import { NgxLodashModule } from '@jsproto/ngx-lodash'
+import { NgxLodashPipeModule } from '@jsproto/ngx-lodash'
 
 import { NgForTrackByKeyDirective } from '../ng-for-track-by-key.directive'
 
 import { NavigationComponent } from './navigation.component'
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgxLodashModule, MatListModule, MatIconModule, MatExpansionModule],
+  imports: [CommonModule, RouterModule, NgxLodashPipeModule, MatListModule, MatIconModule, MatExpansionModule],
   declarations: [NavigationComponent, NgForTrackByKeyDirective],
   exports: [NavigationComponent],
 })
