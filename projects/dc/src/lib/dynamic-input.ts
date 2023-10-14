@@ -31,7 +31,7 @@ export function DynamicInput() {
 
         let register = registerMap.get(this)
 
-        console.log(`@DynamicInput() setInput(${propertyName})`, value, new Error().stack)
+        console.log(`@DynamicInput() setInput(${propertyName})`, this, new Error().stack)
 
         if (!register) {
           register = inject(DynamicComponentRegister)

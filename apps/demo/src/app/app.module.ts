@@ -2,9 +2,10 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { DynamicDirective, provideDynamicComponent } from '@jsproto/ngx-dc'
+import { DynamicDirective } from '@jsproto/ngx-dc'
 
 import { CommonModule } from '@angular/common'
+import { MatDividerModule } from '@angular/material/divider'
 import {
   PreloadAllModules,
   RouterModule,
@@ -14,18 +15,21 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router'
+import { NgDynamicComponent, provideNgDynamic } from '@jsproto/dc2'
 import { routes } from './app.routes'
 import { AppComponent } from './components/app/app.component'
 import { ErrorComponent } from './components/error/error.component'
 import { HomeComponent } from './components/home/home.component'
 import { OutletComponent } from './components/outlet/outlet.component'
 import { LayoutModule } from './core/layout/layout.module'
+import { DynamicComponent } from './dynamic/dynamic.component'
 import { PluginViewComponent } from './plugin-view/plugin-view.component'
-import { TestidAdapterDirective } from './plugin-view/testid.directive'
+import { PluginTestAdapterDirective } from './plugin-view/testid.directive'
 
 @NgModule({
-  declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent, PluginViewComponent],
+  declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent, PluginViewComponent, DynamicComponent],
   imports: [
+    MatDividerModule,
     CommonModule,
     BrowserModule,
     RouterModule,
@@ -33,7 +37,8 @@ import { TestidAdapterDirective } from './plugin-view/testid.directive'
     HttpClientModule,
     LayoutModule,
     DynamicDirective,
-    TestidAdapterDirective
+    PluginTestAdapterDirective,
+    NgDynamicComponent,
   ],
   providers: [
     provideRouter(
@@ -46,8 +51,8 @@ import { TestidAdapterDirective } from './plugin-view/testid.directive'
         onSameUrlNavigation: 'reload',
       }),
     ),
-    provideDynamicComponent({
-      id: 'testid',
+    provideNgDynamic({
+      id: 'plugin.component.test',
       component: PluginViewComponent,
     }),
   ],

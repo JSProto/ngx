@@ -31,7 +31,7 @@ export function DynamicOutput() {
 
         let register = registerMap.get(this)
 
-        console.log(`@DynamicOutput() setInput(${propertyName})`)
+        console.log(`@DynamicOutput() setInput(${propertyName})`, new Error().stack)
 
         if (!register) {
           register = inject(DynamicComponentRegister)

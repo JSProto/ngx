@@ -54,6 +54,7 @@ export class DynamicDirective<T> implements AfterViewInit, OnDestroy {
       if (component) {
         const componentRef = this.viewContainerRef.createComponent(component)
 
+
         this.register.registerComponentRef(component, componentRef)
 
         // if (this.componentClass) {

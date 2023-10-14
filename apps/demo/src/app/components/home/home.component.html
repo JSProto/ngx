@@ -11,11 +11,15 @@
 </div>
 <hr /> -->
 
-var2:
+<!-- var2:
 <br />
 <div dc inject="testid" testid [datas]="data" (send)="testSend($event)">
-  <span class="test1">span test1</span> -  <span class="test2">span test2</span>
-</div>
+  <span class="test1">span test1</span> - <span class="test2">span test2</span>
+</div> -->
 
-<br>
+<br />
 <button (click)="update()">update data</button>
+
+<hr />
+
+<ng-dynamic plugin.component.test [url]="'fasd'" (send)="testSend($event)" />
