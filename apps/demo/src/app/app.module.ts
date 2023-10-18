@@ -22,12 +22,11 @@ import { ErrorComponent } from './components/error/error.component'
 import { HomeComponent } from './components/home/home.component'
 import { OutletComponent } from './components/outlet/outlet.component'
 import { LayoutModule } from './core/layout/layout.module'
-import { DynamicComponent } from './dynamic/dynamic.component'
 import { PluginViewComponent } from './plugin-view/plugin-view.component'
 import { PluginTestAdapterDirective } from './plugin-view/testid.directive'
 
 @NgModule({
-  declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent, PluginViewComponent, DynamicComponent],
+  declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent, PluginViewComponent],
   imports: [
     MatDividerModule,
     CommonModule,

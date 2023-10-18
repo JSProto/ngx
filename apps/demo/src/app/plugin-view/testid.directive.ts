@@ -2,7 +2,7 @@ import { Directive, EventEmitter, Input, Output, forwardRef } from '@angular/cor
 import { NgDynamicDirective } from '@jsproto/dc2'
 
 @Directive({
-  selector: '[plugin.component.test],fasd.ff[fest],div[attr1]:not(.foo[attr2])',
+  selector: '[plugin.component.test]',
   standalone: true,
   providers: [
     {

@@ -1,9 +1,10 @@
 import 'reflect-metadata'
 
-import { NgIf } from '@angular/common'
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentMirror,
   Directive,
@@ -11,11 +12,14 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
+  TemplateRef,
   Type,
+  ViewChild,
   ViewContainerRef,
   inject,
   reflectComponentType,
 } from '@angular/core'
+import { BehaviorSubject, filter } from 'rxjs'
 import { NgComponentInlet } from './ng-component-inlet.directive'
 import { reflectDirectiveType } from './ng-dynamic.model'
 import { NgDynamicService } from './ng-dynamic.service'
@@ -29,14 +33,17 @@ export class NgDynamicDirective {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   providers: [NgDynamicService], // , forwardRef(() => NgDynamicDirective)
-  imports: [NgComponentInlet, NgIf],
+  imports: [NgComponentInlet, NgIf, AsyncPipe, JsonPipe],
 })
 export class NgDynamicComponent implements OnInit, OnChanges, AfterViewInit {
-  private readonly viewContainerRef = inject(ViewContainerRef)
+  private readonly vcr = inject(ViewContainerRef)
+  private readonly cdr = inject(ChangeDetectorRef)
   private readonly service = inject(NgDynamicService)
   private readonly directive = inject(NgDynamicDirective, { host: true, optional: true })
 
-  public component?: Type<any> | null
+  public component = new BehaviorSubject<Type<any>>(null!)
+  public component$ = this.component.asObservable().pipe(filter((a) => !!a))
+
   private mirror?: ComponentMirror<any> | null
 
   private _initialized = false
@@ -45,6 +52,17 @@ export class NgDynamicComponent implements OnInit, OnChanges, AfterViewInit {
 
   public inputs: any
   public outputs: any
+
+  @ViewChild('contentTemplate') contentTemplateRef!: TemplateRef<any>
+  public rootNodes?: any[][]
+
+  @Input() set inject(manifestId: string | null | undefined) {
+    this._manifestId = manifestId
+
+    if (this._initialized) {
+      this.setComponent(this._manifestId)
+    }
+  }
 
   ngOnInit(): void {
     if (this.directive) {
@@ -55,24 +73,10 @@ export class NgDynamicComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes, this.mirror)
+    console.log('ngOnChanges', this.mirror, 'this.mirror?.inputs')
+    console.log(this.inputs, this.outputs)
 
-    this.mirror?.inputs.forEach(({ propName }) => {
-      // @ts-ignore
-      this.inputs[propName] = this[propName]
-    })
-    this.mirror?.outputs.forEach(({ propName }) => {
-      // @ts-ignore
-      this.outputs[propName] = this[propName]
-    })
-  }
-
-  @Input() set inject(manifestId: string | null | undefined) {
-    this._manifestId = manifestId
-
-    if (this._initialized) {
-      this.setComponent(manifestId)
-    }
+    this.setIO()
   }
 
   ngAfterViewInit(): void {
@@ -83,24 +87,31 @@ export class NgDynamicComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  setComponent(manifestId: string | null | undefined) {
-    this.component = this.service.getComponent(manifestId)
-    if (this.component) {
-      this.mirror = reflectComponentType(this.component!)
+  setIO() {
+    this.inputs = this.mirror?.inputs.reduce((m, { propName }) => {
+      return { ...m, [propName]: (this.directive as any)[propName] }
+    }, {} as Record<string, any>)
 
-      this.loadComponent(this.component)
-    }
+    this.outputs = this.mirror?.outputs.reduce((m, { propName }) => {
+      return { ...m, [propName]: (this.directive as any)[propName] }
+    }, {} as Record<string, any>)
+
+    this.cdr.detectChanges()
   }
 
-  loadComponent(component: Type<unknown>): void {
-    if (this.viewContainerRef) {
-      this.viewContainerRef.clear()
+  setComponent(manifestId: string | null | undefined) {
+    const component = this.service.getComponent(manifestId)
+    if (component) {
+      this.mirror = reflectComponentType(component!)
+      this.component.next(component)
 
-      if (component) {
-        const componentRef = this.viewContainerRef.createComponent(component)
+      this.setIO()
 
-        componentRef.changeDetectorRef.detectChanges()
+      if (this.contentTemplateRef) {
+        this.rootNodes = [this.vcr.createEmbeddedView(this.contentTemplateRef).rootNodes]
       }
     }
+
+    this.cdr.detectChanges()
   }
 }

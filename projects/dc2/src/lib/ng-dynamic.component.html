@@ -1,3 +1,11 @@
-<ng-container *ngIf="component">
-  <ng-container *ngComponentInlet="component; inputs: inputs; outputs: outputs" />
+<ng-template #contentTemplate><ng-content></ng-content></ng-template>
+
+<pre>
+
+  {{ component$ | async | json }}
+</pre>
+
+<ng-container *ngIf="component$ | async as ctor">
+  {{ ctor | json }}
+  <ng-container *ngComponentInlet="ctor; inputs: inputs; outputs: outputs; content: rootNodes" />
 </ng-container>
