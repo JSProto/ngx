@@ -138,7 +138,7 @@ export class NgComponentInlet implements OnChanges, DoCheck, OnDestroy {
           const event = this.ngComponentInletOutputs![propName] as EventEmitter<any>
 
           return emitter.asObservable().subscribe((value) => {
-            console.log('event:', event, value)
+            // console.log('event:', event, value)
             event.next(value)
           })
         }) || []

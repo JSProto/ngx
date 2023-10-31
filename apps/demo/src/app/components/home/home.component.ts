@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, SimpleChanges, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({
   selector: 'home',
@@ -6,14 +6,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, Simpl
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnChanges {
-  cdr = inject(ChangeDetectorRef)
+export class HomeComponent {
+  url = 'test'
 
   data = { id: 5 }
-
-  ngOnChanges(changes: SimpleChanges): void {
-     this.cdr.markForCheck()
-  }
 
   testSend(data: any) {
     console.log('data', data)

@@ -11,7 +11,7 @@ import { NgDynamicDirective } from '@jsproto/ngx-dc'
     },
   ],
 })
-export class PluginTestAdapterDirective {
+export class PluginTestAdapterDirective extends NgDynamicDirective {
   @Input() url!: string
   @Output() send = new EventEmitter<string>()
 }
