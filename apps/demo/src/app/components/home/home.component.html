@@ -13,7 +13,7 @@
 url: {{ inp.value }}
 
 <ng-dynamic plugin.component.test [url]="data.id + '=' + inp.value" (send)="testSend($event)">
-  <span>test projectable content</span><br />
-  <span class="test1"> text 1</span>
-  <span class="test2"> text 2</span>
+  <span>main projectable content</span><br />
+  <span class="test1"> text1</span>
+  <span class="test2"> text2</span>
 </ng-dynamic>

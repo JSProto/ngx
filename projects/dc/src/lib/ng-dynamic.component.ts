@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { AsyncPipe, JsonPipe, NgIf } from '@angular/common'
+import { AsyncPipe, NgIf } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -41,7 +41,7 @@ export class NgDynamicDirective implements OnChanges {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   providers: [NgDynamicService],
-  imports: [NgComponentInlet, NgIf, AsyncPipe, JsonPipe],
+  imports: [NgComponentInlet, NgIf, AsyncPipe],
 })
 export class NgDynamicComponent implements OnInit, AfterViewInit {
   private readonly vcr = inject(ViewContainerRef)
@@ -49,7 +49,7 @@ export class NgDynamicComponent implements OnInit, AfterViewInit {
   private readonly service = inject(NgDynamicService)
   private readonly directive = inject(NgDynamicDirective, { host: true, optional: true })
 
-  public component = new BehaviorSubject<Type<any>>(null!)
+  private component = new BehaviorSubject<Type<any>>(null!)
   public component$ = this.component.asObservable()
 
   private mirror?: ComponentMirror<any> | null
@@ -80,7 +80,8 @@ export class NgDynamicComponent implements OnInit, AfterViewInit {
   )
 
   @ViewChild('contentTemplate') contentTemplateRef!: TemplateRef<any>
-  public rootNodes?: any[][]
+
+  public rootNodes?: Node[][]
 
   @Input() set inject(manifestId: string | null | undefined) {
     this._manifestId = manifestId
@@ -105,6 +106,15 @@ export class NgDynamicComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getNgContent(elements: Element[], ngSelectors: string[]) {
+    const isMatched = (element: Element) => ngSelectors.some((selector) => element.matches(selector))
+
+    const mainNodes = elements.filter((element) => !isMatched(element))
+    const selectedNodes = elements.filter(isMatched).map((el) => [el])
+
+    return [mainNodes, ...selectedNodes]
+  }
+
   setComponent(manifestId: string | null | undefined) {
     const component = this.service.getComponent(manifestId)
     if (component) {
@@ -112,7 +122,10 @@ export class NgDynamicComponent implements OnInit, AfterViewInit {
       this.component.next(component)
 
       if (this.contentTemplateRef) {
-        this.rootNodes = [this.vcr.createEmbeddedView(this.contentTemplateRef).rootNodes]
+        this.rootNodes = this.getNgContent(
+          this.vcr.createEmbeddedView(this.contentTemplateRef).rootNodes,
+          this.mirror!.ngContentSelectors.filter((s) => s !== '*'),
+        )
       }
 
       this.cdr.detectChanges()
