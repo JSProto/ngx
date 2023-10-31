@@ -4,6 +4,7 @@ import { AsyncPipe, JsonPipe, NgIf } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentMirror,
   Directive,
@@ -29,7 +30,7 @@ export class NgDynamicDirective implements OnChanges {
   readonly #changes = new EventEmitter<SimpleChanges>()
   readonly onChanges = this.#changes.asObservable()
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges) {
     this.#changes.next(changes)
   }
 }
@@ -44,6 +45,7 @@ export class NgDynamicDirective implements OnChanges {
 })
 export class NgDynamicComponent implements OnInit, AfterViewInit {
   private readonly vcr = inject(ViewContainerRef)
+  private readonly cdr = inject(ChangeDetectorRef)
   private readonly service = inject(NgDynamicService)
   private readonly directive = inject(NgDynamicDirective, { host: true, optional: true })
 
@@ -112,6 +114,8 @@ export class NgDynamicComponent implements OnInit, AfterViewInit {
       if (this.contentTemplateRef) {
         this.rootNodes = [this.vcr.createEmbeddedView(this.contentTemplateRef).rootNodes]
       }
+
+      this.cdr.detectChanges()
     }
   }
 }

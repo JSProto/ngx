@@ -9,13 +9,13 @@ import {
   NgModuleRef,
   OnChanges,
   OnDestroy,
-  reflectComponentType,
   SimpleChanges,
   Type,
   ViewContainerRef,
 } from '@angular/core'
 import { Subscription } from 'rxjs'
 
+/** extended angular NgComponentOutlet */
 @Directive({
   selector: '[ngComponentInlet]',
   standalone: true,
@@ -35,7 +35,7 @@ export class NgComponentInlet implements OnChanges, DoCheck, OnDestroy {
   private _moduleRef: NgModuleRef<any> | undefined
 
   private _inputsUsed = new Map<string, boolean>()
-  private _outputsUsed = new Map<string, boolean>()
+  private _outputsUsed = new Map<string, Subscription>()
 
   constructor(private _viewContainerRef: ViewContainerRef) {}
 
@@ -91,18 +91,13 @@ export class NgComponentInlet implements OnChanges, DoCheck, OnDestroy {
         }
       }
 
-      if (this.ngComponentInletOutputs) {
-        for (const outputName of Object.keys(this.ngComponentInletOutputs)) {
-          this._outputsUsed.set(outputName, true)
-        }
-        this._applyOutputStateDiff(this._componentRef)
-      }
-
       this._applyInputStateDiff(this._componentRef)
+      this._applyOutputStateDiff(this._componentRef)
     }
   }
 
   ngOnDestroy() {
+    this.unsubscribe()
     this._moduleRef?.destroy()
   }
 
@@ -118,35 +113,30 @@ export class NgComponentInlet implements OnChanges, DoCheck, OnDestroy {
     }
   }
 
-  private subscriptions: Subscription[] = []
-
-  unsubscribe() {
-    this.subscriptions?.forEach((subscription) => {
-      if (!subscription.closed) subscription.unsubscribe()
-    })
-  }
-
   private _applyOutputStateDiff(componentRef: ComponentRef<unknown>) {
-    const mirror = reflectComponentType(this.ngComponentInlet!)
-
     this.unsubscribe()
 
     if (this.ngComponentInletOutputs) {
-      this.subscriptions =
-        mirror?.outputs.map(({ propName }) => {
-          const emitter = (componentRef.instance as any)[propName] as EventEmitter<any>
-          const event = this.ngComponentInletOutputs![propName] as EventEmitter<any>
+      Object.keys(this.ngComponentInletOutputs).map((propName) => {
+        const event = (componentRef.instance as any)[propName] as EventEmitter<any>
+        const emitter = this.ngComponentInletOutputs![propName] as EventEmitter<any>
 
-          return emitter.asObservable().subscribe((value) => {
-            // console.log('event:', event, value)
-            event.next(value)
-          })
-        }) || []
+        this._outputsUsed.set(
+          propName,
+          event.subscribe((value) => emitter.next(value)),
+        )
+      })
 
       this._componentRef?.onDestroy(() => this.unsubscribe())
-
-      this._componentRef?.changeDetectorRef.detectChanges()
     }
+  }
+
+  unsubscribe() {
+    this._outputsUsed.forEach((subscription) => {
+      if (!subscription.closed) subscription.unsubscribe()
+    })
+
+    this._outputsUsed.clear()
   }
 }
 
