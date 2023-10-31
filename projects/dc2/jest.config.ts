@@ -3,7 +3,7 @@ export default {
   displayName: 'dc2',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/projects/dc2',
+  coverageDirectory: '../../coverage/projects/dc',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

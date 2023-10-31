@@ -22,8 +22,12 @@
 
 <hr />
 
-<ng-dynamic plugin.component.test [url]="'https://google.com/'" (send)="testSend($event)">
-  <span>test projectable content</span><br>
+<input #url  placeholder="http://mydomain.com"  />
+
+url: {{ url.value }}
+
+<ng-dynamic plugin.component.test [url]="url.value" (send)="testSend($event)">
+  <span>test projectable content</span><br />
   <span class="test1"> text 1</span>
   <span class="test2"> text 2</span>
 </ng-dynamic>

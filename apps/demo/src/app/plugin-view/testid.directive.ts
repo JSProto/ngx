@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, Input, Output, forwardRef } from '@angular/core'
-import { NgDynamicDirective } from '@jsproto/dc2'
+import { NgDynamicDirective } from '@jsproto/ngx-dc'
 
 @Directive({
   selector: '[plugin.component.test]',

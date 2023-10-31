@@ -2,9 +2,10 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { DynamicDirective } from '@jsproto/ngx-dc'
+import { DynamicDirective } from '@jsproto/dc2'
 
 import { CommonModule } from '@angular/common'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatDividerModule } from '@angular/material/divider'
 import {
   PreloadAllModules,
@@ -15,7 +16,7 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router'
-import { NgDynamicComponent, provideNgDynamic } from '@jsproto/dc2'
+import { NgDynamicComponent, provideNgDynamic } from '@jsproto/ngx-dc'
 import { routes } from './app.routes'
 import { AppComponent } from './components/app/app.component'
 import { ErrorComponent } from './components/error/error.component'
@@ -38,6 +39,8 @@ import { PluginTestAdapterDirective } from './plugin-view/testid.directive'
     DynamicDirective,
     PluginTestAdapterDirective,
     NgDynamicComponent,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideRouter(
