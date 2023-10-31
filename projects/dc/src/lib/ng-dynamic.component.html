@@ -1,9 +1,5 @@
 <ng-template #contentTemplate><ng-content></ng-content></ng-template>
 
-<pre>
-inputs: {{ (inputs$ | async ) ?? {} | json }}
-</pre>
-
 <ng-container *ngIf="component$ | async as ctor">
   <ng-container
     *ngComponentInlet="
