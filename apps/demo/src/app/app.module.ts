@@ -24,7 +24,7 @@ import { HomeComponent } from './components/home/home.component'
 import { OutletComponent } from './components/outlet/outlet.component'
 import { LayoutModule } from './core/layout/layout.module'
 import { PluginViewComponent } from './plugin-view/plugin-view.component'
-import { PluginTestAdapterDirective } from './plugin-view/testid.directive'
+import { TestAdapterPlugin } from './plugin-view/testid.directive'
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, OutletComponent, HomeComponent, PluginViewComponent],
@@ -37,7 +37,7 @@ import { PluginTestAdapterDirective } from './plugin-view/testid.directive'
     HttpClientModule,
     LayoutModule,
     DynamicDirective,
-    PluginTestAdapterDirective,
+    TestAdapterPlugin,
     NgDynamicComponent,
     FormsModule,
     ReactiveFormsModule

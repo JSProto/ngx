@@ -4,14 +4,9 @@ import { NgDynamicDirective } from '@jsproto/ngx-dc'
 @Directive({
   selector: '[plugin.component.test]',
   standalone: true,
-  providers: [
-    {
-      provide: NgDynamicDirective,
-      useExisting: forwardRef(() => PluginTestAdapterDirective),
-    },
-  ],
+  providers: [{ provide: NgDynamicDirective, useExisting: forwardRef(() => TestAdapterPlugin) }],
 })
-export class PluginTestAdapterDirective extends NgDynamicDirective {
+export class TestAdapterPlugin extends NgDynamicDirective {
   @Input() url!: string
   @Output() send = new EventEmitter<string>()
 }
