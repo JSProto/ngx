@@ -32,7 +32,7 @@
     </mat-expansion-panel-header>
 
     <mat-nav-list>
-      <ng-container *ngFor="let subroute of route.children; index as i; trackByKey: 'id'">
+      <ng-container *ngFor="let subroute of route.children; index as i">
         <ng-container
           [ngTemplateOutlet]="subroute.children.length ? list : item"
           [ngTemplateOutletContext]="{ route: subroute }"

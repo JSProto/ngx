@@ -7,13 +7,12 @@ import { RouterModule } from '@angular/router'
 
 import { NgxLodashPipeModule } from '@jsproto/ngx-lodash'
 
-import { NgForTrackByKeyDirective } from '../ng-for-track-by-key.directive'
 
 import { NavigationComponent } from './navigation.component'
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgxLodashPipeModule, MatListModule, MatIconModule, MatExpansionModule],
-  declarations: [NavigationComponent, NgForTrackByKeyDirective],
+  declarations: [NavigationComponent],
   exports: [NavigationComponent],
 })
 export class NavigationModule {}

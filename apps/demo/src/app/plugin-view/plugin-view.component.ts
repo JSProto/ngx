@@ -5,4 +5,6 @@ import { TestAdapterPlugin } from './testid.directive'
   selector: 'ngx-plugin-view',
   templateUrl: './plugin-view.component.html',
 })
-export class PluginViewComponent extends TestAdapterPlugin {}
+export class PluginViewComponent extends TestAdapterPlugin {
+
+}

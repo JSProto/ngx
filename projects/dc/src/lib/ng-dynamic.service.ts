@@ -3,7 +3,7 @@ import { Injectable, Injector, Type, inject } from '@angular/core'
 import { NgDynamicManifest } from './ng-dynamic.model'
 import { NG_DYNAMIC_MANIFEST_TOKEN } from './ng-dynamic.providers'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NgDynamicService {
   private readonly manifests = inject(Injector)
     .get<NgDynamicManifest[]>(NG_DYNAMIC_MANIFEST_TOKEN, [])
