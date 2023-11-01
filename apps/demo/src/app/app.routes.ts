@@ -13,8 +13,8 @@ const canActivateRoute: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
     route.component = component!
   }
 
-  return !!component
-  return true // if need load default route.component
+  return !!component // access if exists plugin
+  return true // access if not exists plugin but need load default route.component
 }
 
 export const routes: Routes = [
