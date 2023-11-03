@@ -1,5 +1,3 @@
-import 'reflect-metadata'
-
 import { AsyncPipe, NgIf } from '@angular/common'
 import {
   AfterViewInit,
