@@ -21,7 +21,8 @@
       "@app/demo/*": ["apps/demo/src/libs/*"],
       "@jsproto/dc2": ["projects/dc2/src/index.ts"],
       "@jsproto/ngx-dc": ["projects/dc/src/index.ts"],
-      "@jsproto/ngx-lodash": ["projects/lodash/src/index.ts"]
+      "@jsproto/ngx-lodash": ["projects/lodash/src/index.ts"],
+      "@ngp/template-ref": ["projects/template-ref/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", ".angular/", "dist/"]
